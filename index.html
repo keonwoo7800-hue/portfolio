@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>남건우 · 토스 Systems Engineer</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blue:   #3182F6;
+    --lblue:  #EBF3FE;
+    --dblue:  #1B64DA;
+    --dark:   #191F28;
+    --mid:    #4E5968;
+    --light:  #8B95A1;
+    --bg:     #F9FAFB;
+    --border: #E5E8EB;
+    --white:  #FFFFFF;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Noto Sans KR',sans-serif; background:#fff; color:var(--dark); font-size:13px; line-height:1.7; }
+
+  @media print {
+    body { font-size:11px; }
+    .no-break { page-break-inside: avoid; }
+    a { color: var(--blue) !important; text-decoration: none; }
+  }
+
+  .wrap { max-width: 840px; margin: 0 auto; }
+
+  /* HEADER */
+  .header { background: var(--blue); padding: 44px 48px 36px; color: white; }
+  .header-name { font-size: 48px; font-weight: 900; letter-spacing: -1px; margin-bottom: 6px; }
+  .header-title { font-size: 16px; color: #BDD7FD; margin-bottom: 20px; }
+  .header-divider { border: none; border-top: 1px solid #5BA5FA; margin-bottom: 18px; }
+  .header-contact { font-size: 12.5px; color: #BDD7FD; margin-bottom: 6px; }
+  .header-notion { font-size: 11.5px; color: #5BA5FA; margin-bottom: 24px; }
+  .header-stats { display: flex; gap: 48px; }
+  .stat-num { font-size: 32px; font-weight: 900; color: white; line-height: 1.1; }
+  .stat-label { font-size: 11px; color: #BDD7FD; margin-top: 2px; }
+
+  /* SECTION */
+  .section { padding: 32px 48px; }
+  .section + .section { padding-top: 0; }
+  .sec-title {
+    font-size: 17px; font-weight: 700; color: var(--dark);
+    border-bottom: 3px solid var(--blue);
+    padding-bottom: 8px; margin-bottom: 18px;
+  }
+
+  /* LABEL-VALUE */
+  .lv-table { width: 100%; border-collapse: collapse; margin-bottom: 2px; }
+  .lv-table td { padding: 8px 12px; vertical-align: top; }
+  .lv-label { width: 140px; background: var(--bg); font-weight: 700; font-size: 12px; color: var(--light); }
+  .lv-value { font-size: 13px; color: var(--dark); }
+
+  /* CALLOUT */
+  .callout {
+    border: 1px solid var(--blue); border-left-width: 6px;
+    background: var(--lblue); padding: 16px 20px;
+    border-radius: 4px; margin: 16px 0;
+  }
+  .callout-title { font-weight: 700; font-size: 13.5px; color: var(--blue); margin-bottom: 6px; }
+  .callout-body { font-size: 12.5px; color: var(--dark); line-height: 1.8; }
+
+  /* SKILL TABLE */
+  .skill-table { width: 100%; border-collapse: collapse; }
+  .skill-table tr { border-bottom: 1px solid var(--border); }
+  .skill-table td { padding: 9px 12px; vertical-align: middle; }
+  .skill-cat { width: 120px; background: var(--bg); font-weight: 700; font-size: 12px; color: var(--mid); }
+  .sk-bold { font-weight: 700; color: var(--dark); }
+  .sk-blue { color: var(--blue); }
+
+  /* FIT TABLE */
+  .fit-table { width: 100%; border-collapse: collapse; border: 1px solid var(--border); }
+  .fit-left { width: 50%; padding: 16px 18px; background: var(--bg); border-right: 3px solid var(--blue); vertical-align: top; }
+  .fit-right { width: 50%; padding: 16px 18px; background: var(--lblue); vertical-align: top; }
+  .fit-head { font-weight: 700; font-size: 13px; margin-bottom: 10px; }
+  .fit-head.gray { color: var(--mid); }
+  .fit-head.blue { color: var(--blue); }
+  .fit-item { font-size: 12px; margin-bottom: 5px; }
+  .fit-item.gray { color: var(--mid); }
+  .fit-item.blue-txt { color: var(--dblue); }
+
+  /* CAREER DIVIDER */
+  .career-label {
+    background: var(--dark); color: white;
+    padding: 12px 48px; font-size: 18px; font-weight: 700;
+    margin-top: 8px;
+  }
+
+  /* CASE */
+  .case-wrap { margin-bottom: 32px; }
+  .case-title { font-size: 16px; font-weight: 700; color: var(--dark); margin-bottom: 4px; }
+  .case-meta { font-size: 11.5px; color: var(--light); margin-bottom: 14px; font-family: 'JetBrains Mono', monospace; }
+  .case-label { font-weight: 700; font-size: 12.5px; color: var(--blue); margin: 10px 0 5px; }
+  .case-bullet { font-size: 12.5px; color: var(--mid); padding-left: 16px; margin-bottom: 3px; position: relative; }
+  .case-bullet::before { content: '·'; position: absolute; left: 0; color: var(--blue); font-weight: 700; }
+  .case-highlight { font-size: 12.5px; color: var(--dark); font-weight: 600; padding-left: 16px; margin-bottom: 3px; position: relative; }
+  .case-highlight::before { content: '▸'; position: absolute; left: 0; color: var(--blue); font-size: 11px; }
+
+  /* PROJECT CARD */
+  .proj-card { display: flex; margin-bottom: 14px; border: 1px solid var(--border); border-radius: 4px; overflow: hidden; }
+  .proj-accent { width: 5px; flex-shrink: 0; background: var(--border); }
+  .proj-body { padding: 16px 20px; flex: 1; }
+  .proj-title { font-weight: 700; font-size: 13.5px; color: var(--dark); margin-bottom: 3px; }
+  .proj-meta { font-size: 11px; color: var(--light); margin-bottom: 10px; }
+  .proj-section { font-size: 11.5px; font-weight: 700; color: var(--blue); margin: 8px 0 4px; }
+  .proj-desc { font-size: 12px; color: var(--mid); margin-bottom: 3px; padding-left: 12px; position: relative; line-height: 1.7; }
+  .proj-desc::before { content: '·'; position: absolute; left: 0; color: var(--light); }
+  .proj-tags { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 10px; }
+  .proj-tag { font-size: 11px; padding: 2px 8px; border-radius: 3px; background: var(--bg); color: var(--light); font-family: 'JetBrains Mono', monospace; }
+
+  /* EDU */
+  .edu-row { display: flex; border-bottom: 1px solid var(--border); }
+  .edu-label { width: 140px; padding: 8px 12px; background: var(--bg); font-weight: 700; font-size: 12px; color: var(--light); flex-shrink: 0; }
+  .edu-val { padding: 8px 12px; font-size: 13px; color: var(--dark); }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-name">남건우</div>
+    <div class="header-title">Systems Engineer · 미들웨어 기술지원 엔지니어</div>
+    <hr class="header-divider">
+    <div class="header-contact">keonwoo700@naver.com &nbsp;|&nbsp; 010-9042-3875 &nbsp;|&nbsp; 한성대학교 전자정보공학과</div>
+    <div class="header-contact">Notion : <a href="https://www.notion.so/Notes-367b62cd0943805aa15ed5ba790e1ceb?pvs=12" style="color:#5BA5FA;" target="_blank">https://www.notion.so/Notes-367b62cd0943805aa15ed5ba790e1ceb?pvs=12</a></div>
+    <div class="header-stats">
+      <div><div class="stat-num">6년 5개월</div><div class="stat-label">총 경력</div></div>
+      <div><div class="stat-num">300+</div><div class="stat-label">고객사</div></div>
+      <div><div class="stat-num">1,000+</div><div class="stat-label">기술지원 건수</div></div>
+    </div>
+  </div>
+
+  <!-- 경력 요약 -->
+  <div class="section">
+    <div class="sec-title">경력 요약</div>
+    <table class="lv-table">
+      <tr><td class="lv-label">소속</td><td class="lv-value">㈜티맥스소프트</td></tr>
+      <tr><td class="lv-label">직급</td><td class="lv-value">책임</td></tr>
+      <tr><td class="lv-label">재직기간</td><td class="lv-value">2019.12 ~ 현재 (6년 5개월)</td></tr>
+      <tr><td class="lv-label">담당 직무</td><td class="lv-value">미들웨어 기술지원 엔지니어</td></tr>
+    </table>
+    <div class="callout">
+      <div class="callout-title">인프라 전반을 레이어별로 진단하고 개선해온 엔지니어</div>
+      <div class="callout-body">6년간 공공기관·공기업 300여 개 고객사 대상 1,000건 이상의 기술지원을 수행하며 OS·네트워크·WAS·WEB 전 레이어에 걸친 장애 분석과 성능 튜닝 역량을 쌓아왔습니다. 동시접속 최대 100만 명 규모 시스템과 대규모 클러스터 환경에서 서비스 안정성을 확보한 경험을 보유하고 있으며, 온프레미스부터 NCP·KT Cloud·OpenShift 기반 하이브리드 클라우드 환경까지 직접 구축 및 운영 지원했습니다. 반복 장애의 근본 원인을 구조적으로 제거하는 방식으로 서비스 가용성을 지속적으로 개선해 왔습니다.</div>
+    </div>
+  </div>
+
+  <!-- 보유 기술 -->
+  <div class="section">
+    <div class="sec-title">보유 기술</div>
+    <table class="skill-table">
+      <tr>
+        <td class="skill-cat">미들웨어</td>
+        <td>
+          <span class="sk-bold">JEUS</span> &nbsp;&nbsp;
+          <span class="sk-bold">WebtoB</span> &nbsp;&nbsp;
+          <span class="sk-bold">Tmax</span> &nbsp;&nbsp;
+          <span class="sk-bold">Sysmaster</span> &nbsp;&nbsp;
+          <span class="sk-bold">Apache</span> &nbsp;&nbsp;
+          <span class="sk-bold">Tomcat</span> &nbsp;&nbsp;
+          <span class="sk-bold">Nginx</span> &nbsp;&nbsp;
+          <span class="sk-bold">Wildfly</span> &nbsp;&nbsp;
+          <span class="sk-bold">Redis</span>
+        </td>
+      </tr>
+      <tr>
+        <td class="skill-cat">클라우드</td>
+        <td>
+          <span class="sk-bold">NCP</span> &nbsp;&nbsp;
+          <span class="sk-bold">KT Cloud</span> &nbsp;&nbsp;
+          <span class="sk-bold">Kubernetes</span> &nbsp;&nbsp;
+          <span class="sk-bold">OpenShift</span>
+        </td>
+      </tr>
+      <tr>
+        <td class="skill-cat">운영체제</td>
+        <td>
+          <span class="sk-bold">Linux</span>&nbsp;&nbsp;
+          <span class="sk-bold">AIX</span>&nbsp;&nbsp;
+          <span class="sk-bold">HP-UX</span>&nbsp;&nbsp;
+          <span class="sk-bold">SunOS</span>&nbsp;&nbsp;
+          <span class="sk-bold">Windows</span>
+        </td>
+      </tr>
+      <tr>
+        <td class="skill-cat">모니터링·분석</td>
+        <td>
+          <span class="sk-bold">APM 분석</span> &nbsp;&nbsp;
+          <span class="sk-bold">Heap Dump·Thread Dump·JVM 로그 분석</span> &nbsp;&nbsp;
+          <span class="sk-bold">네트워크·OS 분석</span>
+        </td>
+      </tr>
+      <tr>
+        <td class="skill-cat">프로그래밍</td>
+        <td>
+          <span class="sk-bold">Java</span>&nbsp;&nbsp;
+          <span class="sk-bold">JavaScript</span> &nbsp;&nbsp;
+          <span class="sk-bold">Shell Script</span>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- 자격증 -->
+  <div class="section">
+    <div class="sec-title">자격증 및 학력</div>
+    <table class="lv-table">
+      <tr><td class="lv-label">정보처리기사</td><td class="lv-value">한국산업인력공단 | 2019.11.22</td></tr>
+      <tr><td class="lv-label">NCP</td><td class="lv-value">Naver Cloud Platform Practitioner | 2026.05.20</td></tr>
+      <tr><td class="lv-label">NCA</td><td class="lv-value">Naver Cloud Associate | 2022.05.27</td></tr>
+      <tr><td class="lv-label">학력</td><td class="lv-value">한성대학교 전자정보공학과 졸업</td></tr>
+    </table>
+  </div>
+
+  <!-- 포지션 적합성 -->
+  <div class="section">
+    <div class="sec-title">토스 Systems Engineer 포지션 적합성</div>
+    <table class="fit-table">
+      <tr>
+        <td class="fit-left">
+          <div class="fit-head gray">토스 요구 역량</div>
+          <div class="fit-item gray">· 대규모 Linux 인프라 설계·운영 경험</div>
+          <div class="fit-item gray">· Linux 커널·네트워크 레벨 트러블슈팅</div>
+          <div class="fit-item gray">· 하이브리드 인프라 환경 운영 모델 설계</div>
+          <div class="fit-item gray">· 반복 장애 근본 원인 제거 및 아키텍처 개선</div>
+          <div class="fit-item gray">· 컨테이너 기반 배포 환경 구성</div>
+          <div class="fit-item gray">· 다양한 이해관계자와 기술 협업</div>
+        </td>
+        <td class="fit-right">
+          <div class="fit-head blue">보유 경험</div>
+          <div class="fit-item blue-txt">· Linux 6년+ 실무 운영 지원</div>
+          <div class="fit-item blue-txt">· TCP Keepalive·OS ulimit 등 커널·네트워크 레벨 조정</div>
+          <div class="fit-item blue-txt">· OpenShift 온프레미스+클라우드 하이브리드 구축</div>
+          <div class="fit-item blue-txt">· OS·WAS·WEB·네트워크 레이어별 장애 원인 분석 및 구조적 개선 수행</div>
+          <div class="fit-item blue-txt">· OpenShift Pod·yaml·컨테이너 이미지 빌드 수행</div>
+          <div class="fit-item blue-txt">· 고객사 운영진, 개발사, 서드파티 솔루션 벤더 등 다양한 이해관계자 간의 기술 논의를 주도하며 복잡한 현장 이슈 조율 및 해결</div>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- 경력기술서 -->
+  <div class="career-label">경력기술서</div>
+
+  <!-- 문제 해결 사례 -->
+  <div class="section">
+    <div class="sec-title">복잡한 문제 해결 사례</div>
+
+    <!-- 사례 1 -->
+    <div class="case-wrap no-break">
+      <div class="case-title">사례 1. &nbsp; 동시접속 최대 100만 명 환경 — 서비스 지연 원인 분석 및 퍼포먼스 튜닝</div>
+      <div class="case-meta">한국철도공사 예약발매 시스템 &nbsp;|&nbsp; 2023.09 ~ 2025.12 &nbsp;|&nbsp; 2025.09 대수송 지원 중 발생 &nbsp;</div>
+
+      <div class="case-label">▸ 문제 원인 분석</div>
+      <div class="case-bullet">명절 대수송 기간 트래픽 급증 시 서비스 응답 지연 발생</div>
+      <div class="case-bullet">APM 이상 징후 탐지 후 Thread Dump 분석 → 가용 Worker Thread 자원 고갈 확인</div>
+      <div class="case-bullet">Heap Dump 분석으로 특정 JS 파일 번들의 메모리 과점유 확인 — 비정상적 반복 호출이 원인</div>
+      <div class="case-bullet">Network 및 OS 자원 점유율 분석 → 클라이언트-서버 간 Bandwidth 병목 발생 확인</div>
+      <div class="case-bullet">근본 원인 : 특정 JS Static Resource의 반복 호출로 인한 WAS Thread 고갈 및 대역폭 과다 점유</div>
+
+      <div class="case-label">▸ 해결 접근 방식 — 긴급 임시 조치</div>
+      <div class="case-bullet">WebtoB-JEUS 30중화 서버 대상 Worker Thread Pool 상향 조정</div>
+      <div class="case-bullet">Netfunnel 동시 접속 허용 수 임시 제한 — Netfunnel 엔지니어 협업 대응</div>
+
+      <div class="case-label">▸ 해결 접근 방식 — 구조적 개선</div>
+      <div class="case-bullet">JS·JSON 등 텍스트 기반 Static Resource에 Gzip Compression 전송 적용</div>
+      <div class="case-bullet">반복 호출 대상 리소스에 Cache-Control 헤더 및 캐싱 옵션 최적화</div>
+      <div class="case-bullet">기존 WAS 단에서 수행하던 대용량 JS 번들 파일의 I/O 및 전송 처리를 WebtoB의 내부 캐싱 및 파일 처리 엔진으로 이관하여 WAS 부하 근본적 차단</div>
+      <div class="case-bullet">긴급 부하 테스트 수행 → Worker Process 수 및 Timeout 파라미터 재튜닝</div>
+
+      <div class="case-label">▸ 결과 및 인프라 변화</div>
+      <div class="case-bullet">Netfunnel Active Session 최대 허용 수 : 1,500 → 10,000 유저 이상 (약 6.7배 향상)</div>
+      <div class="case-bullet">명절 대수송 기간 서비스 지연 건수 및 네트워크 대역폭 사용량 대폭 감소</div>
+      <div class="case-bullet">Static Resource 처리 구조 개선으로 WAS 부하 분산 — 반복 장애 구조적 제거</div>
+      <div class="case-bullet">이후 명절 대수송 기간마다 동일 프로세스를 적용하여 서비스 가용성 지속 확보</div>
+    </div>
+
+    <div style="height:24px"></div>
+
+    <!-- 사례 2 -->
+    <div class="case-wrap no-break">
+      <div class="case-title">사례 2. &nbsp; 40중화 대규모 클러스터 환경 — 간헐적 서비스 장애 및 세션 유실 원인 분석</div>
+      <div class="case-meta">국민체육진흥공단 체육진흥투표권 인터넷예발매시스템 &nbsp;|&nbsp; 2022.08 ~ 2022.11 &nbsp;</div>
+
+      <div class="case-label">▸ 문제 원인 분석</div>
+      <div class="case-bullet">40중화 대규모 환경에서 간헐적으로 약 10분간 서비스 장애 및 세션 유실 반복 발생</div>
+      <div class="case-bullet">장애 발생 시간대 WebtoB·JEUS 시스템 로그 분석 → 네트워크 절단(Network Disconnection) 이슈 의심</div>
+      <div class="case-bullet">세션 로그 분석 → Failover-Delay 구간 내 장애 미복구로 인한 세션 유실 확인</div>
+      <div class="case-bullet">근본 원인 : TCP 연결 유지 설정 미비로 인한 네트워크 레벨 절단 미탐지 및 솔루션 레벨 Failover 지연</div>
+
+      <div class="case-label">▸ 해결 접근 방식</div>
+      <div class="case-bullet">OS 레벨 : TCP Keepalive 파라미터 조정 → 네트워크 절단 조기 감지 및 빠른 복구 대응</div>
+      <div class="case-bullet">솔루션 레벨 : WebtoB SvrChkTime·Read-Timeout 값 재조정 → 연결 이상 감지 임계값 최적화</div>
+      <div class="case-bullet">애플리케이션 레벨 : JEUS Failover-Delay 수치 조정 → 동일 장애 발생 시 세션 보존 가능성 향상</div>
+      <div class="case-bullet">OS·솔루션·애플리케이션 3개 레이어 연계 파라미터 최적화를 통해 연쇄 장애 확산 차단 및 인프라 고가용성(HA) 확보</div>
+
+      <div class="case-label">▸ 결과 및 인프라 변화</div>
+      <div class="case-bullet">서비스 장애 지속 시간 : 10분 이상 → 1분 미만으로 단축 (90% 이상 개선)</div>
+      <div class="case-bullet">이후 가용성 테스트(HA Test) 수행 중 세션 유실 발생 없음 확인</div>
+      <div class="case-bullet">TCP·솔루션·애플리케이션 파라미터 기준값 정립 → 유사 대규모 환경 적용 시 재활용 자산으로 공유</div>
+    </div>
+  </div>
+
+  <!-- 주요 프로젝트 -->
+  <div class="section">
+    <div class="sec-title">주요 프로젝트 이력</div>
+
+    <div class="proj-card no-break">
+      <div class="proj-accent"></div>
+      <div class="proj-body">
+        <div class="proj-title">한국철도공사(KORAIL) 예약발매 시스템 — 명절 대수송 기술지원</div>
+        <div class="proj-meta">2023.09 ~ 2025.12 &nbsp;</div>
+        <div class="proj-section">역할</div>
+        <div class="proj-desc">동시접속 최대 100만 명 규모 JEUS·WebtoB·Tmax 서비스 모니터링 및 명절 대수송 기간 집중 기술지원 전담</div>
+        <div class="proj-section">기술 스택</div>
+        <div class="proj-desc">JEUS, WebtoB, Tmax, SunOS</div>
+        <div class="proj-section">인프라 구조</div>
+        <div class="proj-desc">30중화 WebtoB-JEUS 이중화 클러스터, Netfunnel 연동, APM 기반 실시간 모니터링 체계</div>
+        <div class="proj-section">주요 개선 사항</div>
+        <div class="proj-desc">Static Resource 처리를 WAS에서 WEB 레이어로 이관, Gzip Compression·Cache 최적화 적용으로 대역폭 병목 해소</div>
+        <div class="proj-desc">Netfunnel 허용 세션 수 1,500 → 10,000+ 유저로 개선 (약 6.7배 향상)</div>
+        <div class="proj-tags">
+          <span class="proj-tag">JEUS 6</span><span class="proj-tag">WebtoB 4</span><span class="proj-tag">Tmax 4</span><span class="proj-tag">SunOS 5</span><span class="proj-tag">JDK 7</span><span class="proj-tag">APM</span><span class="proj-tag">Heap Dump</span><span class="proj-tag">Thread Dump</span><span class="proj-tag">OS 자원 분석</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="proj-card no-break">
+      <div class="proj-accent"></div>
+      <div class="proj-body">
+        <div class="proj-title">국민체육진흥공단 체육진흥투표권 인터넷예발매시스템 — 고가용성 인프라 개선</div>
+        <div class="proj-meta">2022.08 ~ 2022.11 &nbsp;</div>
+        <div class="proj-section">역할</div>
+        <div class="proj-desc">40중화 대규모 클러스터 환경에서 반복 발생하는 서비스 장애·세션 유실 원인 분석 및 HA 구조 개선</div>
+        <div class="proj-section">기술 스택</div>
+        <div class="proj-desc">JEUS, WebtoB, Linux, TCP Keepalive 파라미터 튜닝</div>
+        <div class="proj-section">인프라 구조</div>
+        <div class="proj-desc">40중화 WebtoB-JEUS 클러스터, 세션 클러스터링 구성</div>
+        <div class="proj-section">주요 개선 사항</div>
+        <div class="proj-desc">OS·솔루션·애플리케이션 3개 레이어 연계 파라미터 조정으로 장애 지속 시간 10분 이상 → 1분 미만 단축</div>
+        <div class="proj-desc">HA 테스트 수행 결과 세션 유실 Zero 달성</div>
+        <div class="proj-tags">
+          <span class="proj-tag">JEUS 8</span><span class="proj-tag">WebtoB 5</span><span class="proj-tag">Linux</span><span class="proj-tag">네트워크 파라미터 및 솔루션 자원 튜닝</span><span class="proj-tag">Failover 튜닝</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="proj-card no-break">
+      <div class="proj-accent"></div>
+      <div class="proj-body">
+        <div class="proj-title">보건복지부 차세대 사회보장 정보시스템 구축</div>
+        <div class="proj-meta">2021.04 ~ 2022.04 &nbsp;|&nbsp; 약 300억 규모 &nbsp;</div>
+        <div class="proj-section">역할</div>
+        <div class="proj-desc">국가 단위 대형 정보화 시스템 미들웨어 구성 및 Java 버전 전환 안정화 전담</div>
+        <div class="proj-section">기술 스택</div>
+        <div class="proj-desc">JEUS, WebtoB, Linux, JDK 11</div>
+        <div class="proj-section">인프라 구조</div>
+        <div class="proj-desc">Linux·Windows 기반 온프레미스 서버, JEUS-WebtoB 이중화 구성, 세션 클러스터링</div>
+        <div class="proj-section">주요 개선 사항</div>
+        <div class="proj-desc">JVM Fatal Error Log 기반 JNI 충돌 이슈 원인 규명 → Fault Isolation 및 JVM Module System 우회 옵션 적용으로 서비스 안정화</div>
+        <div class="proj-desc">Java 11 전환 체크포인트 수립 → 이후 유사 전환 작업에 재활용</div>
+        <div class="proj-tags">
+          <span class="proj-tag">JEUS 8</span><span class="proj-tag">WebtoB 5</span><span class="proj-tag">Linux</span><span class="proj-tag">Windows</span><span class="proj-tag">JDK 11</span><span class="proj-tag">JVM 분석</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="proj-card no-break">
+      <div class="proj-accent"></div>
+      <div class="proj-body">
+        <div class="proj-title">한국교육학술정보원 교육행정데이터통합관리시스템 물적기반 구축</div>
+        <div class="proj-meta">2024.04 ~ 2024.10 &nbsp;</div>
+        <div class="proj-section">역할</div>
+        <div class="proj-desc">Private Cloud(OpenShift) 환경에서 미들웨어 컨테이너화 수행</div>
+        <div class="proj-section">기술 스택</div>
+        <div class="proj-desc">OpenShift, Kubernetes, yaml, Shell Script, JEUS, WebtoB, Linux</div>
+        <div class="proj-section">인프라 구조</div>
+        <div class="proj-desc">OpenShift 기반 Private Cloud, Pod 단위 미들웨어 배포, yaml 기반 구성 관리</div>
+        <div class="proj-section">주요 개선 사항</div>
+        <div class="proj-desc">기존 온프레미스 미들웨어 환경을 컨테이너 이미지로 전환 — 배포 일관성 및 환경 재현성 확보</div>
+        <div class="proj-desc">Shell Script 기반 배포 자동화 적용</div>
+        <div class="proj-tags">
+          <span class="proj-tag">OpenShift</span><span class="proj-tag">Kubernetes</span><span class="proj-tag">JEUS 8</span><span class="proj-tag">WebtoB 5</span><span class="proj-tag">Shell Script</span><span class="proj-tag">Linux</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="proj-card no-break">
+      <div class="proj-accent"></div>
+      <div class="proj-body">
+        <div class="proj-title">KT Cloud WebtoB·JEUS 패키징</div>
+        <div class="proj-meta">2022.05 ~ 2022.07 &nbsp;</div>
+        <div class="proj-section">역할</div>
+        <div class="proj-desc">퍼블릭 클라우드 환경 미들웨어 상품 패키징 및 플랫폼 호환성 검증 수행</div>
+        <div class="proj-section">기술 스택</div>
+        <div class="proj-desc">KT Cloud, JEUS, WebtoB, Linux, 오토스케일링, 로드밸런서, ACL, 스토리지</div>
+        <div class="proj-section">인프라 구조</div>
+        <div class="proj-desc">KT Cloud 콘솔 기반 VM 환경, 오토스케일링·로드밸런서·ACL 등 클라우드 네이티브 기능 연동</div>
+        <div class="proj-section">주요 개선 사항</div>
+        <div class="proj-desc">클라우드 환경 시스템 경량화 및 오토스케일링·로드밸런서 호환성 검증 완료 → KT Cloud 상품으로 온보딩</div>
+        <div class="proj-tags">
+          <span class="proj-tag">KT Cloud</span><span class="proj-tag">JEUS 8</span><span class="proj-tag">WebtoB 5</span><span class="proj-tag">Linux</span><span class="proj-tag">오토스케일링</span><span class="proj-tag">로드밸런서</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="proj-card no-break">
+      <div class="proj-accent"></div>
+      <div class="proj-body">
+        <div class="proj-title">오픈소스 미들웨어 기술지원 (경기도청·국민건강보험공단·재외동포청 외)</div>
+        <div class="proj-meta">2023.03 ~ 2026.02 &nbsp;</div>
+        <div class="proj-section">역할</div>
+        <div class="proj-desc">Apache·Tomcat·Wildfly 기반 공공 프로젝트 설치·구성·배포·장애 대응</div>
+        <div class="proj-section">기술 스택</div>
+        <div class="proj-desc">Apache, Tomcat, Wildfly, Linux, Shell Script</div>
+        <div class="proj-section">인프라 구조</div>
+        <div class="proj-desc">클라우드 전환 프로젝트 포함, 온프레미스·클라우드 혼합 환경</div>
+        <div class="proj-section">주요 개선 사항</div>
+        <div class="proj-desc">생성형 AI 플랫폼(경기도청), 클라우드 전환(국가평생교육진흥원·한국지능정보사회진흥원) 등 다양한 환경에서 오픈소스 미들웨어 안정화</div>
+        <div class="proj-tags">
+          <span class="proj-tag">Apache 2.4</span><span class="proj-tag">Tomcat 9</span><span class="proj-tag">Wildfly 26.1</span><span class="proj-tag">Rocky 8·9</span><span class="proj-tag">Linux</span><span class="proj-tag">JDK 11·17</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 고객 교육 -->
+  <div class="section">
+    <div class="sec-title">고객 운영 교육</div>
+    <div class="edu-row"><div class="edu-label">내용</div><div class="edu-val">JEUS·WebtoB 운영 교육 &nbsp;|&nbsp; 총 5회 &nbsp;|&nbsp; 누적 수료생 190명+</div></div>
+    <div class="edu-row"><div class="edu-label">기간</div><div class="edu-val">2022 ~ 2025</div></div>
+    <div class="edu-row"><div class="edu-label">특이사항</div><div class="edu-val">WebtoB 모니터링 Shell Script 제공 → 운영 효율 개선 피드백 수령</div></div>
+  </div>
+
+  <!-- 기타 경력 및 활동 -->
+  <div class="section">
+    <div class="sec-title">기타 경력 및 활동</div>
+    <table class="lv-table">
+      <tr>
+        <td class="lv-label">2018.08 ~ 2018.12</td>
+        <td class="lv-value">
+          <strong>크리스피드(주) &nbsp;|&nbsp; 웹 개발 인턴 (5개월)</strong><br>
+          공기업 ERP 시스템 구축 프로젝트 웹 개발 참여<br>
+          · 프론트엔드 — Nexacro 기반 UI 개발 (JavaScript)<br>
+          · 백엔드 — 전자정부프레임워크 기반 서버 개발 (Java · SQL)<br>
+          · 약 29개 단위 프로그램 개발
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <div style="height:32px"></div>
+</div>
+</body>
+</html>
